@@ -1,49 +1,90 @@
-# Ex18 B-Tree
+# Ex18 Simulation of a Ticket Counter Using Queue (Linked List Implementation)
+
 ## DATE:
+21.11.2025  
+
 ## AIM:
-To write a C function to delete an element in a B Tree.
+To simulate the functioning of a ticket counter that operates on a First-In-First-Out (FIFO) basis using a queue implemented via a linked list in Java.
+
 ## Algorithm
-1. Start the program.
-2. Try to delete the item from the node using delValFromNode. If not found, print "Not present" and return.
-3. If the node's count is 0 after deletion, set tmp to the current node and update myNode to its first linker child.
-4. Free the tmp node.
-5. Update the global root to the new myNode. 
-6. Return after deletion.
-7. End the program.  
+1. Start the program.  
+2. Create a `Node` class with `data` and `next` attributes.  
+3. Implement a `Queue` class with `enqueue()` and `dequeue()` methods.  
+4. Enqueue customers (represented by integers or names).  
+5. Dequeue each customer in FIFO order as they are served.  
+6. Display the queue before and after serving customers.  
+7. Stop the program.  
 
 ## Program:
-```
+```java
 /*
-Program to write a C function to delete an element in a B Tree
-DevelopedBy: pavithra s
-Register Number: 212223230147
+Program to simulate the functioning of a ticket counter that operates on a First-In-First-Out (FIFO)
+Developed by: Pavithra S
+RegisterNumber: 212223230147
 */
-struct BTreeNode { 
-int item[MAX + 1], count; 
-struct BTreeNode *linker[MAX + 1]; 
-}; 
-struct BTreeNode *root;*/ 
-void delete (int item, struct BTreeNode *myNode) { 
-struct BTreeNode *tmp; 
-if (!delValFromNode(item, myNode)) { 
-printf("Not present\n"); 
-return; 
-} else { 
-if (myNode->count == 0) { 
-tmp = myNode; 
-myNode = myNode->linker[0]; 
-free(tmp); 
-} 
-} 
-root = myNode; 
-return; 
+class Node {
+    String data;
+    Node next;
+    Node(String data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class Queue {
+    Node front, rear;
+    
+    void enqueue(String data) {
+        Node newNode = new Node(data);
+        if (rear == null) {
+            front = rear = newNode;
+            return;
+        }
+        rear.next = newNode;
+        rear = newNode;
+    }
+
+    void dequeue() {
+        if (front == null) {
+            System.out.println("Queue is empty.");
+            return;
+        }
+        System.out.println(front.data + " has been served.");
+        front = front.next;
+        if (front == null)
+            rear = null;
+    }
+
+    void display() {
+        if (front == null) {
+            System.out.println("Queue is empty.");
+            return;
+        }
+        Node temp = front;
+        System.out.print("Current Queue: ");
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+}
+
+public class TicketCounter {
+    public static void main(String[] args) {
+        Queue q = new Queue();
+        q.enqueue("Alice");
+        q.enqueue("Bob");
+        q.enqueue("Charlie");
+        q.enqueue("Diana");
+        q.display();
+        q.dequeue();
+        q.display();
+    }
 }
 ```
+## OUTPUT
+<img width="1245" height="842" alt="image" src="https://github.com/user-attachments/assets/1e3f40a6-7f61-4ba7-85b7-34445df03ea7" />
 
-## Output:
-
-![image](https://github.com/user-attachments/assets/4664fba5-3230-4036-9d60-c36c580e187f)
-
-
-## Result:
-Thus, the C function to delete an element in a B Tree is implemented successfully.
+## RESULT
+Thus, the program successfully simulates a ticket counter queue where customers are served in FIFO order using a linked list-based queue implementation.

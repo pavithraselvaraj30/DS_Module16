@@ -1,54 +1,59 @@
-# Ex19 B+ Tree
+# Ex19 Palindrome Check Using Deque
+
 ## DATE:
+21.11.2025  
+
 ## AIM:
-To write a C function to traverse the elements in a B+ Tree.
+To design a program that checks whether a given message is a palindrome by removing all non-alphanumeric characters, converting all characters to lowercase, and using a deque data structure for comparison.
 
 ## Algorithm
-1. Start the problem. 
-2. Iterate through each element in the node's data array.
-3. If the node is not a leaf, recursively call traverse on the current child pointer.
-4. Print the current data element. 
-5. After the loop, if the node is not a leaf, traverse the last child pointer.
-6. Return after completing the traversal.
-7. End the program. 
+1. Start the program.  
+2. Read the input string from the user.  
+3. Remove all non-alphanumeric characters and convert the string to lowercase.  
+4. Use a deque to store characters of the string.  
+5. Compare characters from both ends of the deque.  
+6. If all pairs match, it’s a palindrome; otherwise, it’s not.  
+7. Display the result.  
 
 ## Program:
-```
+```java
 /*
-Program to traverse the elements in a B+ Tree.
-DevelopedBy: pavithra s
-Register Number: 212223230147
+Program to check whether a given message is a palindrome by removing all non-alphanumeric characters.
+Developed by: Pavithra S
+RegisterNumber: 212223230147
 */
-struct B_TreeNode 
-{ 
-int *data; 
-struct B_TreeNode **child_ptr; 
-int leaf; 
-int n; 
-}; 
-struct B_TreeNode *root = NULL, *np = NULL, *x = NULL;*/ 
-void traverse(struct B_TreeNode *p) 
-{ 
-int i; 
-for(i=0;i<p->n;i++) 
-{ 
-if(p->leaf==0) 
-{ 
-traverse(p->child_ptr[i]); 
-} 
-printf("%d ",p->data[i]); 
-} 
-if(p->leaf==0) 
-{ 
-traverse(p->child_ptr[i]); 
-} 
+import java.util.*;
+
+public class PalindromeDeque {
+    public static boolean isPalindrome(String str) {
+        Deque<Character> deque = new LinkedList<>();
+        for (char c : str.toCharArray()) {
+            if (Character.isLetterOrDigit(c)) {
+                deque.add(Character.toLowerCase(c));
+            }
+        }
+
+        while (deque.size() > 1) {
+            if (deque.removeFirst() != deque.removeLast())
+                return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a message: ");
+        String message = sc.nextLine();
+        if (isPalindrome(message))
+            System.out.println("Palindrome");
+        else
+            System.out.println("Not a Palindrome");
+        sc.close();
+    }
 }
 ```
+## OUTPUT
+<img width="459" height="252" alt="image" src="https://github.com/user-attachments/assets/e038d3e3-303b-4f2c-8b5a-87ee42c3172c" />
 
-## Output:
-
-![image](https://github.com/user-attachments/assets/fae7ae05-5ccd-4dc9-a1ba-43222207a848)
-
-
-## Result:
-Thus, the function to traverse the elements in a B+ Tree is implemented successfully.
+## RESULT
+The program successfully removes all non-alphanumeric characters, converts the text to lowercase, and uses a deque to efficiently compare characters from both ends. Hence, it determines whether the string is a palindrome.
